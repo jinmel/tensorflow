@@ -51,6 +51,11 @@ tf_py_test(
     data = [":invalid_op.so"],
 )
 
+tf_custom_op_library(
+    name = "gpu_aware_record_input_op.so",
+    srcs = ["gpu_aware_record_input_op.cc","gpu_record_yielder.h","gpu_record_yielder.cc"]
+)
+
 filegroup(
     name = "all_files",
     srcs = glob(

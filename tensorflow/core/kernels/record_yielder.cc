@@ -18,6 +18,7 @@ limitations under the License.
 #include "tensorflow/core/lib/io/record_reader.h"
 #include "tensorflow/core/lib/strings/str_util.h"
 #include "tensorflow/core/platform/env.h"
+#include "tensorflow/core/platform/default/logging.h"
 
 namespace tensorflow {
 
@@ -94,6 +95,10 @@ static Status MatchFiles(const string& patterns,
   return Status::OK();
 }
 
+int RecordYielder::QueryGPU() {
+  return 0;
+}
+
 void RecordYielder::MainLoop() {
   while (true) {
     ++epoch_;
@@ -129,8 +134,14 @@ void RecordYielder::MainLoop() {
                   filenames.end());
     }
 
+
+    // Query GPU status
+
+
+
     // Shards files and use one thread to go through each shard.
     const int N = opts_.parallelism;
+    VLOG(0) << "Parallelism:" << N;
     std::vector<Shard> shards(N);
     for (int i = 0; i < N; ++i) {
       Shard* shard = &shards[i];

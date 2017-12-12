@@ -146,6 +146,8 @@ class RecordYielder {
             buf_.size() >= std::max<uint64>(1, opts_.bufsize / 2));
   }
 
+  int QueryGPU();
+
   void MainLoop();
   struct Shard;
   void ShardLoop(Shard* shard);
